@@ -14,7 +14,7 @@ App de marketplace con **login**, **persistencia de sesión**, **tabs** (Feed / 
 ## 🧰 Stack elegido
 - **React Native bare + TypeScript**  
 - **Estado**: React **Context + useReducer**  
-+- **Navegación**: `@react-navigation/native` + `@react-navigation/stack` + `@react-navigation/bottom-tabs`.  
+- **Navegación**: `@react-navigation/native` + `@react-navigation/stack` + `@react-navigation/bottom-tabs`.  
 - **Persistencia de sesión**: `@react-native-async-storage/async-storage`.  
 - **Estilos**: `StyleSheet` nativo 
 - **Íconos**: `react-native-vector-icons` (MaterialCommunityIcons).  
