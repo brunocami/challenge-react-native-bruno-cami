@@ -21,8 +21,7 @@ interface State {
 type Action =
     | { type: 'RESTORE'; user?: User }
     | { type: 'SIGN_IN'; user: User }
-    | { type: 'SIGN_OUT' }
-    | { type: 'UPDATE_USER'; patch: Partial<User> };
+    | { type: 'SIGN_OUT' };
 
 // Reducer para manejar el estado de autenticacion
 function reducer(state: State, action: Action): State {
@@ -35,10 +34,6 @@ function reducer(state: State, action: Action): State {
             return { status: 'auth', user: action.user };
         case 'SIGN_OUT':
             return { status: 'unauth' };
-        case 'UPDATE_USER':
-            return state.user
-                ? { ...state, user: { ...state.user, ...action.patch } }
-                : state;
         default:
             return state;
     }
@@ -50,7 +45,6 @@ type AuthContextProps = {
     isAuthenticated: boolean;
     signIn: (email: string, password: string) => Promise<void>;
     signOut: () => Promise<void>;
-    updateUser: (patch: Partial<User>) => void;
 };
 
 const AuthContext = createContext<AuthContextProps | null>(null);
@@ -105,9 +99,6 @@ export const AuthProvider: React.FC<React.PropsWithChildren> = ({
         dispatch({ type: 'SIGN_OUT' });
     }, []);
 
-    const updateUser: AuthContextProps['updateUser'] = patch =>
-        dispatch({ type: 'UPDATE_USER', patch });
-
     // Memoizo las propiedades del contexto para evitar re-renders
     const value = useMemo<AuthContextProps>(
         () => ({
@@ -116,7 +107,6 @@ export const AuthProvider: React.FC<React.PropsWithChildren> = ({
             isAuthenticated: state.status === 'auth',
             signIn,
             signOut,
-            updateUser,
         }),
         [state, signIn, signOut],
     );

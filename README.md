@@ -1,97 +1,90 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Challenge Técnico – React Native (Marketplace)
 
-# Getting Started
+App de marketplace con **login**, **persistencia de sesión**, **tabs** (Feed / Productos) y **checkout simulado** según los criterios del challenge.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Resumen del flujo
+1) **Login** (email/pass hardcodeado) → valida y persiste sesión en AsyncStorage.  
+2) **Tabs**:  
+   - **Feed**: 
+   - **Productos**: 
+3) **Cerrar sesión**: limpia AsyncStorage y vuelve al login.
 
-## Step 1: Start Metro
+---
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## 🧰 Stack elegido
+- **React Native bare + TypeScript**  
+- **Estado**: React **Context + useReducer**  
++- **Navegación**: `@react-navigation/native` + `@react-navigation/stack` + `@react-navigation/bottom-tabs`.  
+- **Persistencia de sesión**: `@react-native-async-storage/async-storage`.  
+- **Estilos**: `StyleSheet` nativo 
+- **Íconos**: `react-native-vector-icons` (MaterialCommunityIcons).  
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+---
 
-```sh
-# Using npm
-npm start
+## 🏗️ Arquitectura y decisiones
+**Auth**  
+- `src/context/AuthContext.tsx`: maneja `{status, user}` con `useReducer`.  
+- Acciones: `RESTORE` (boot desde AsyncStorage), `SIGN_IN`, `SIGN_OUT`, `RESTORE`.  
+- `signIn` guarda `STORAGE_KEYS.user`; `signOut` borra storage.  
+- `isAuthenticated = status === 'auth'`.
 
-# OR using Yarn
-yarn start
+**Navegación**  
+- `src/navigation/AppNavigator.tsx`:  
+  - **Stack**: `Login` | `Main` (Tabs).  
+  - **Tabs**: `Feed` | `Productos`.  
+  - Tanto en login como en logout exitoso se resetea el navigation para evitar volver a la pantalla anterior con gestos `navigation.reset({ index: 0, routes: [{ name: 'Stack' }] })`.
+
+**Datos**  
+
+**Formato regional (es-AR)**  
+- Moneda ARS, fechas `dd/MM/yyyy HH:mm`.  
+
+---
+
+## 🗂️ Estructura de carpetas
+```
+android/
+ios/
+src/
+  assets/                # imágenes / mocks 
+  components/            # Componentes reutilizables
+  constants/             # claves y constantes (auth, colores, etc.)
+  context/               # Estados globales de la App
+  navigation/            # AppNavigator (Stack + Tabs)
+  screens/               # Componentes principales de las vistas
+  services/              # Servicios API
+  types/                 # tipos typescript (User)
+  utils/                 # Funciones comunes
+  App.tsx
+index.js
 ```
 
-## Step 2: Build and run your app
+---
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+## 🔐 Credenciales de demo para el challenge
+- **email**: `test@it.rock`  
+- **password**: `123456`  
 
-### Android
+> Se validan localmente y se persisten en `AsyncStorage` bajo `STORAGE_KEYS.user`.
 
-```sh
-# Using npm
-npm run android
+---
 
-# OR using Yarn
-yarn android
+## ▶️ Setup y ejecución (npm)
+> Requisitos previos: Node LTS, JDK 17+, Android SDK.
+
+1) **Instalar dependencias**
+```bash
+npm install
 ```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
+2) **iOS (solo macOS)**
+```bash
+npx pod-install
 ```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
+3) **Correr en Android**
+```bash
+npx react-native run-android
 ```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
+4) **Correr en iOS**
+```bash
+npx react-native run-ios
 ```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
