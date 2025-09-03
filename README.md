@@ -11,17 +11,17 @@ App de marketplace con **login**, **persistencia de sesión**, **tabs** (Feed / 
 
 ---
 
-## 🧰 Stack elegido
+## Stack elegido
 - **React Native bare + TypeScript**  
 - **Estado**: React **Context + useReducer**  
 - **Navegación**: `@react-navigation/native` + `@react-navigation/stack` + `@react-navigation/bottom-tabs`.  
 - **Persistencia de sesión**: `@react-native-async-storage/async-storage`.  
-- **Estilos**: `StyleSheet` nativo 
+- **Estilos**: `StyleSheet` nativo, `Color scheme` para cambiar colores segun modo del dispositivo light o dark.
 - **Íconos**: `react-native-vector-icons` (MaterialCommunityIcons).  
 
 ---
 
-## 🏗️ Arquitectura y decisiones
+## Arquitectura y decisiones
 **Auth**  
 - `src/context/AuthContext.tsx`: maneja `{status, user}` con `useReducer`.  
 - Acciones: `RESTORE` (boot desde AsyncStorage), `SIGN_IN`, `SIGN_OUT`, `RESTORE`.  
@@ -41,7 +41,7 @@ App de marketplace con **login**, **persistencia de sesión**, **tabs** (Feed / 
 
 ---
 
-## 🗂️ Estructura de carpetas
+## Estructura de carpetas
 ```
 android/
 ios/
@@ -61,7 +61,7 @@ index.js
 
 ---
 
-## 🔐 Credenciales de demo para el challenge
+## Credenciales de demo para el challenge
 - **email**: `test@it.rock`  
 - **password**: `123456`  
 
@@ -69,7 +69,7 @@ index.js
 
 ---
 
-## ▶️ Setup y ejecución (npm)
+## Setup y ejecución (npm)
 > Requisitos previos: Node LTS, JDK 17+, Android SDK.
 
 1) **Instalar dependencias**

@@ -1,13 +1,23 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import {
+    View,
+    Text,
+    TextInput,
+    Button,
+    StyleSheet,
+    useColorScheme,
+} from 'react-native';
 import { useAuth } from '../context/AuthContext';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../types/Tab';
+import { getColors } from '../constants/colors';
 
 type Props = { onLoginSuccess?: () => void };
 
 const LoginScreen: React.FC<Props> = () => {
+    const scheme = useColorScheme();
+    const colors = getColors(scheme);
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
     const { signIn } = useAuth();
@@ -24,10 +34,19 @@ const LoginScreen: React.FC<Props> = () => {
     };
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Iniciar sesión</Text>
+        <View
+            style={[styles.container, { backgroundColor: colors.background }]}
+        >
+            <Text style={[styles.title, { color: colors.text }]}>
+                Iniciar sesión
+            </Text>
             <TextInput
-                style={styles.input}
+                style={[
+                    styles.input,
+                    {
+                        color: colors.text,
+                    },
+                ]}
                 placeholder="Email"
                 keyboardType="email-address"
                 autoCapitalize="none"
@@ -35,7 +54,12 @@ const LoginScreen: React.FC<Props> = () => {
                 onChangeText={email => setUser(prev => ({ ...prev, email }))}
             />
             <TextInput
-                style={styles.input}
+                style={[
+                    styles.input,
+                    {
+                        color: colors.text,
+                    },
+                ]}
                 placeholder="Contraseña"
                 secureTextEntry
                 value={user.password}
