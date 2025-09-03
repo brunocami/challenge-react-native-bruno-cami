@@ -8,6 +8,7 @@ import FeedScreen from '../screens/FeedScreen';
 import ProductsScreen from '../screens/ProductsScreen';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
 import { useAuth } from '../context/AuthContext';
+import CheckoutScreen from '../screens/Checkout';
 
 const Tab = createBottomTabNavigator<AppTabParamList>();
 const Stack = createStackNavigator<RootStackParamList>();
@@ -54,6 +55,11 @@ const AppNavigator: React.FC = () => {
             screenOptions={{ headerShown: false }}
         >
             <Stack.Screen name="Main" component={TabNavigator} />
+            <Stack.Screen
+                name="Checkout"
+                component={CheckoutScreen}
+                options={{ presentation: 'modal' }}
+            />
             <Stack.Screen name="Login" component={LoginScreen} />
         </Stack.Navigator>
     );

@@ -1,14 +1,98 @@
 import React from 'react';
-import { FlatList, Image, Text, useColorScheme, View } from 'react-native';
+import {
+    ActivityIndicator,
+    FlatList,
+    Image,
+    Text,
+    TouchableOpacity,
+    useColorScheme,
+    View,
+} from 'react-native';
 import useProducts from '../hooks/Products';
 import { getColors } from '../constants/colors';
 import { StyleSheet } from 'react-native';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
+import { Product } from '../types/Products';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../types/Tab';
 
 export default function ProductsScreen() {
+    const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
     const scheme = useColorScheme();
     const colors = getColors(scheme);
-    const { products } = useProducts();
+    const { products, loading, error } = useProducts();
+
+    const renderProductCard = ({ item }: { item: Product }) => (
+        <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => {
+                navigation.navigate('Checkout', { item: item });
+            }}
+            style={[
+                styles.itemContainer,
+                {
+                    borderColor: colors.border,
+                },
+            ]}
+        >
+            {item.image && (
+                <View style={styles.imageContainer}>
+                    <Image
+                        source={{ uri: item.image }}
+                        style={[styles.itemImage]}
+                    />
+                </View>
+            )}
+            <View style={styles.infoContainer}>
+                <Text style={[styles.infoTitle, { color: colors.text }]}>
+                    {item.title}
+                </Text>
+                <View style={styles.infoRating}>
+                    <MaterialIcons
+                        name="star"
+                        size={14}
+                        color={colors.primary}
+                    />
+                    <Text style={[styles.infoRate, { color: colors.text }]}>
+                        {item.rating.rate}
+                    </Text>
+                </View>
+                <Text style={[styles.infoPrice, { color: colors.text }]}>
+                    $ {item.price}
+                </Text>
+            </View>
+        </TouchableOpacity>
+    );
+
+    if (loading) {
+        return (
+            <View
+                style={[
+                    styles.container,
+                    styles.centered,
+                    { backgroundColor: colors.background },
+                ]}
+            >
+                <ActivityIndicator size="large" />
+            </View>
+        );
+    }
+
+    if (error) {
+        return (
+            <View
+                style={[
+                    styles.container,
+                    styles.centered,
+                    { backgroundColor: colors.background },
+                ]}
+            >
+                <Text>Error: {error}</Text>
+            </View>
+        );
+    }
+
     return (
         <View
             style={[styles.container, { backgroundColor: colors.background }]}
@@ -16,58 +100,7 @@ export default function ProductsScreen() {
             <FlatList
                 data={products}
                 keyExtractor={item => item.id.toString()}
-                renderItem={({ item }) => (
-                    <View
-                        style={[
-                            styles.itemContainer,
-                            {
-                                borderColor: colors.border,
-                            },
-                        ]}
-                    >
-                        {item.image && (
-                            <View style={styles.imageContainer}>
-                                <Image
-                                    source={{ uri: item.image }}
-                                    style={[styles.itemImage]}
-                                />
-                            </View>
-                        )}
-                        <View style={styles.infoContainer}>
-                            <Text
-                                style={[
-                                    styles.infoTitle,
-                                    { color: colors.text },
-                                ]}
-                            >
-                                {item.title}
-                            </Text>
-                            <View style={styles.infoRating}>
-                                <MaterialIcons
-                                    name="star"
-                                    size={14}
-                                    color={colors.primary}
-                                />
-                                <Text
-                                    style={[
-                                        styles.infoRate,
-                                        { color: colors.text },
-                                    ]}
-                                >
-                                    {item.rating.rate}
-                                </Text>
-                            </View>
-                            <Text
-                                style={[
-                                    styles.infoPrice,
-                                    { color: colors.text },
-                                ]}
-                            >
-                                $ {item.price}
-                            </Text>
-                        </View>
-                    </View>
-                )}
+                renderItem={renderProductCard}
                 numColumns={2}
                 columnWrapperStyle={styles.flatListContainer}
                 showsVerticalScrollIndicator={false}
@@ -79,6 +112,10 @@ export default function ProductsScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    centered: {
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     flatListContainer: {
         paddingHorizontal: 8,
