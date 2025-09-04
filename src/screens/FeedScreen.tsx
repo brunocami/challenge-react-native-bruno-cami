@@ -3,7 +3,6 @@ import {
     ActivityIndicator,
     Button,
     FlatList,
-    Image,
     StyleSheet,
     Text,
     TouchableOpacity,
@@ -18,8 +17,9 @@ import { RootStackParamList } from '../types/Tab';
 import { Comment } from '../types/Feed';
 import { useFeed } from '../hooks/Feed';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
+import FeedCard from '../components/FeedCard';
 
-const PAGE_SIZE = 12;
+const PAGE_SIZE = 10;
 
 export default function FeedScreen() {
     const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
@@ -38,7 +38,7 @@ export default function FeedScreen() {
         }
     }, [visibleCount, comments.length]);
 
-    // Reset visibleCount when comments are refreshed
+    // Resetear paginado al refrescar los comentarios
     React.useEffect(() => {
         setVisibleCount(PAGE_SIZE);
     }, [comments]);
@@ -118,39 +118,7 @@ export default function FeedScreen() {
     }
 
     const renderFeedCard = ({ item }: { item: Comment }) => (
-        <View
-            style={[styles.commentContainer, { backgroundColor: colors.card }]}
-        >
-            <View style={styles.commentAvatarContainer}>
-                {item.avatar ? (
-                    <Image
-                        source={{ uri: item.avatar }}
-                        style={styles.commentAvatar}
-                    />
-                ) : (
-                    <View style={[styles.commentAvatar, styles.avatarCircle]}>
-                        <Text style={[{ color: colors.text }]}>
-                            {item.email?.[0]?.toUpperCase() || '?'}
-                        </Text>
-                    </View>
-                )}
-            </View>
-            <View style={styles.commentInfoContainer}>
-                <View style={styles.commentHeaderContainer}>
-                    <Text
-                        style={[styles.commentAuthor, { color: colors.text }]}
-                    >
-                        {item.email}
-                    </Text>
-                    <Text style={[styles.commentBody, { color: colors.text }]}>
-                        {new Date(item.timestamp * 1000).toLocaleDateString()}
-                    </Text>
-                </View>
-                <Text style={[styles.commentBody, { color: colors.text }]}>
-                    {item.body}
-                </Text>
-            </View>
-        </View>
+        <FeedCard item={item} />
     );
 
     return (
@@ -216,7 +184,6 @@ const styles = StyleSheet.create({
         width: '80%',
         alignItems: 'center',
     },
-
     logoutContainer: {
         padding: 12,
         flexDirection: 'row',
@@ -235,45 +202,5 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         marginLeft: 12,
         color: '#fff',
-    },
-    commentContainer: {
-        padding: 12,
-        borderRadius: 8,
-        flexDirection: 'row',
-    },
-    commentAvatarContainer: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
-        marginRight: 12,
-        overflow: 'hidden',
-    },
-    commentInfoContainer: {
-        width: '85%',
-        flex: 1,
-    },
-    commentHeaderContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        marginBottom: 4,
-    },
-    commentAuthor: {
-        fontWeight: 'bold',
-    },
-    commentBody: {
-        marginTop: 4,
-    },
-    commentAvatar: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
-        marginRight: 12,
-        overflow: 'hidden',
-    },
-    avatarCircle: {
-        backgroundColor: '#ccc',
-        justifyContent: 'center',
-        alignItems: 'center',
     },
 });

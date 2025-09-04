@@ -2,26 +2,20 @@ import React, { useCallback, useState } from 'react';
 import {
     ActivityIndicator,
     FlatList,
-    Image,
     Text,
-    TouchableOpacity,
     useColorScheme,
     View,
 } from 'react-native';
 import useProducts from '../hooks/Products';
 import { getColors } from '../constants/colors';
 import { StyleSheet } from 'react-native';
-import MaterialIcons from '@react-native-vector-icons/material-icons';
 import { Product } from '../types/Products';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../types/Tab';
+import ProductCard from '../components/ProductCard';
 
-const PAGE_SIZE = 12;
+const PAGE_SIZE = 10;
 
 export default function ProductsScreen() {
     const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
-    const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
     const scheme = useColorScheme();
     const colors = getColors(scheme);
     const { products, loading, error, fetchProducts } = useProducts();
@@ -35,51 +29,13 @@ export default function ProductsScreen() {
         }
     }, [visibleCount, products.length]);
 
-    // Reset visibleCount when products are refreshed
+    // Resetear paginado al refrescar los productos
     React.useEffect(() => {
         setVisibleCount(PAGE_SIZE);
     }, [products]);
 
     const renderProductCard = ({ item }: { item: Product }) => (
-        <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => {
-                navigation.navigate('Checkout', { item: item });
-            }}
-            style={[
-                styles.itemContainer,
-                {
-                    borderColor: colors.border,
-                },
-            ]}
-        >
-            {item.image && (
-                <View style={styles.imageContainer}>
-                    <Image
-                        source={{ uri: item.image }}
-                        style={[styles.itemImage]}
-                    />
-                </View>
-            )}
-            <View style={styles.infoContainer}>
-                <Text style={[styles.infoTitle, { color: colors.text }]}>
-                    {item.title}
-                </Text>
-                <View style={styles.infoRating}>
-                    <MaterialIcons
-                        name="star"
-                        size={14}
-                        color={colors.primary}
-                    />
-                    <Text style={[styles.infoRate, { color: colors.text }]}>
-                        {item.rating.rate}
-                    </Text>
-                </View>
-                <Text style={[styles.infoPrice, { color: colors.text }]}>
-                    $ {item.price}
-                </Text>
-            </View>
-        </TouchableOpacity>
+        <ProductCard item={item} />
     );
 
     if (loading) {
@@ -146,40 +102,5 @@ const styles = StyleSheet.create({
     flatListContainer: {
         paddingHorizontal: 8,
         justifyContent: 'space-between',
-    },
-    itemContainer: {
-        width: '50%',
-        minHeight: 250,
-        borderWidth: 1,
-        padding: 4,
-    },
-    imageContainer: {
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    itemImage: {
-        width: '100%',
-        aspectRatio: 1, // Mantiene la proporción cuadrada, ajusta según necesites
-        resizeMode: 'contain',
-    },
-    infoContainer: {
-        flex: 1,
-        padding: 8,
-    },
-    infoTitle: {
-        fontWeight: 'bold',
-        fontSize: 16,
-    },
-    infoPrice: {
-        fontSize: 14,
-        color: 'gray',
-    },
-    infoRating: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    infoRate: {
-        marginLeft: 4,
-        fontSize: 14,
     },
 });

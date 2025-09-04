@@ -42,10 +42,7 @@ const ChagePaymentMethodModal = ({
                                 item.cardNumber === selectedMethod.cardNumber;
                             return (
                                 <TouchableOpacity
-                                    style={[
-                                        styles.methodItem,
-                                        isSelected && styles.selectedMethod,
-                                    ]}
+                                    style={[styles.methodItem]}
                                     onPress={() => {
                                         onSelect(item);
                                         onClose();
@@ -185,9 +182,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 4,
         width: '100%',
-    },
-    selectedMethod: {
-        backgroundColor: '#cce5ff',
     },
     methodText: {
         fontSize: 16,

@@ -4,6 +4,7 @@ import { ColorSchemeName } from 'react-native';
 const light = {
   background: '#FFFFFF',
   text: '#000000',
+  textSecondary: '#AAAAAA',
   primary: '#0066CC',
   secondary: '#FF6600',
   border: '#E0E0E0',
@@ -15,6 +16,7 @@ const light = {
 const dark = {
   background: '#000000',
   text: '#FFFFFF',
+  textSecondary: '#AAAAAA',
   primary: '#3399FF',
   secondary: '#FF8844',
   border: '#444444',
