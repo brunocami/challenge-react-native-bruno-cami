@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
     },
     itemImage: {
         width: '100%',
+        maxWidth: 180,
         aspectRatio: 1, // Mantiene la proporción cuadrada, ajusta según necesites
         resizeMode: 'contain',
     },
