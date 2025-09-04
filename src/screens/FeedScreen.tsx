@@ -53,8 +53,7 @@ export default function FeedScreen() {
                 ]}
             >
                 <View style={styles.logoutContainerLoading}>
-                    <Button
-                        title="Cerrar sesión"
+                    <TouchableOpacity
                         onPress={async () => {
                             await signOut();
                             navigation.reset({
@@ -62,7 +61,13 @@ export default function FeedScreen() {
                                 routes: [{ name: 'Login' }],
                             });
                         }}
-                    />
+                    >
+                        <MaterialIcons
+                            name="logout"
+                            size={24}
+                            color={colors.text}
+                        />
+                    </TouchableOpacity>
                 </View>
                 <ActivityIndicator size="large" />
             </View>
@@ -79,8 +84,7 @@ export default function FeedScreen() {
                 ]}
             >
                 <View style={styles.logoutContainerLoading}>
-                    <Button
-                        title="Cerrar sesión"
+                    <TouchableOpacity
                         onPress={async () => {
                             await signOut();
                             navigation.reset({
@@ -88,7 +92,13 @@ export default function FeedScreen() {
                                 routes: [{ name: 'Login' }],
                             });
                         }}
-                    />
+                    >
+                        <MaterialIcons
+                            name="logout"
+                            size={24}
+                            color={colors.text}
+                        />
+                    </TouchableOpacity>
                 </View>
                 <View
                     style={[
@@ -132,8 +142,7 @@ export default function FeedScreen() {
                         {comments.length}
                     </Text>
                 </View>
-                <Button
-                    title="Cerrar sesión"
+                <TouchableOpacity
                     onPress={async () => {
                         await signOut();
                         navigation.reset({
@@ -141,7 +150,13 @@ export default function FeedScreen() {
                             routes: [{ name: 'Login' }],
                         });
                     }}
-                />
+                >
+                    <MaterialIcons
+                        name="logout"
+                        size={24}
+                        color={colors.text}
+                    />
+                </TouchableOpacity>
             </View>
 
             <FlatList

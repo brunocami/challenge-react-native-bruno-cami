@@ -19,7 +19,7 @@ export default function FeedCard({ item }: { item: Comment }) {
                 ) : (
                     <View style={[styles.commentAvatar, styles.avatarCircle]}>
                         <Text style={[{ color: colors.text }]}>
-                            {item.email?.[0]?.toUpperCase() || '?'}
+                            {item.email?.slice(0, 2).toUpperCase() || '??'}
                         </Text>
                     </View>
                 )}
