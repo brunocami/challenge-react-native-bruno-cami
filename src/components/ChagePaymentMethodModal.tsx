@@ -6,9 +6,11 @@ import {
     StyleSheet,
     TouchableOpacity,
     FlatList,
+    useColorScheme,
 } from 'react-native';
 import { PAYMENT_METHODS } from '../constants/paymentMethods';
 import { PaymentMethod } from '../types/checkout';
+import { getColors } from '../constants/colors';
 
 interface ChagePaymentMethodModalProps {
     visible: boolean;
@@ -23,6 +25,8 @@ const ChagePaymentMethodModal = ({
     selectedMethod,
     onSelect,
 }: ChagePaymentMethodModalProps) => {
+    const scheme = useColorScheme();
+    const colors = getColors(scheme);
     return (
         <Modal
             visible={visible}
@@ -31,8 +35,15 @@ const ChagePaymentMethodModal = ({
             onRequestClose={onClose}
         >
             <View style={styles.overlay}>
-                <View style={styles.modalContent}>
-                    <Text style={styles.title}>Cambiar método de pago</Text>
+                <View
+                    style={[
+                        styles.modalContent,
+                        { backgroundColor: colors.card },
+                    ]}
+                >
+                    <Text style={[styles.title, { color: colors.text }]}>
+                        Cambiar método de pago
+                    </Text>
                     <FlatList
                         data={PAYMENT_METHODS}
                         keyExtractor={item => item.cardNumber}
@@ -42,7 +53,10 @@ const ChagePaymentMethodModal = ({
                                 item.cardNumber === selectedMethod.cardNumber;
                             return (
                                 <TouchableOpacity
-                                    style={[styles.methodItem]}
+                                    style={[
+                                        styles.methodItem,
+                                        { backgroundColor: colors.background },
+                                    ]}
                                     onPress={() => {
                                         onSelect(item);
                                         onClose();
@@ -76,18 +90,38 @@ const ChagePaymentMethodModal = ({
                                             style={styles.methodInfoContainer}
                                         >
                                             <View style={styles.methodHeader}>
-                                                <Text style={styles.methodText}>
+                                                <Text
+                                                    style={[
+                                                        styles.methodText,
+                                                        { color: colors.text },
+                                                    ]}
+                                                >
                                                     {item.bank}
                                                 </Text>
-                                                <Text style={styles.methodText}>
+                                                <Text
+                                                    style={[
+                                                        styles.methodText,
+                                                        { color: colors.text },
+                                                    ]}
+                                                >
                                                     *{item.cardNumber.slice(-4)}
                                                 </Text>
                                             </View>
                                             <View style={styles.methodHeader}>
-                                                <Text style={styles.methodText}>
+                                                <Text
+                                                    style={[
+                                                        styles.methodText,
+                                                        { color: colors.text },
+                                                    ]}
+                                                >
                                                     {item.cardHolderName}
                                                 </Text>
-                                                <Text style={styles.methodText}>
+                                                <Text
+                                                    style={[
+                                                        styles.methodText,
+                                                        { color: colors.text },
+                                                    ]}
+                                                >
                                                     {item.expirationDate}
                                                 </Text>
                                             </View>

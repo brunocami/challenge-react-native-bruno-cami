@@ -2,10 +2,12 @@ import React from 'react';
 import { Image, StyleSheet, Text, useColorScheme, View } from 'react-native';
 import { Comment } from '../types/Feed';
 import { getColors } from '../constants/colors';
+import { formatDate } from '../utils/feed';
 
 export default function FeedCard({ item }: { item: Comment }) {
     const scheme = useColorScheme();
     const colors = getColors(scheme);
+
     return (
         <View
             style={[styles.commentContainer, { backgroundColor: colors.card }]}
@@ -33,11 +35,11 @@ export default function FeedCard({ item }: { item: Comment }) {
                     </Text>
                     <Text
                         style={[
-                            styles.commentBody,
+                            styles.commentDate,
                             { color: colors.textSecondary },
                         ]}
                     >
-                        {new Date(item.timestamp * 1000).toLocaleDateString()}
+                        {formatDate(item.timestamp)}
                     </Text>
                 </View>
                 <Text style={[styles.commentBody, { color: colors.text }]}>
@@ -76,6 +78,11 @@ const styles = StyleSheet.create({
     },
     commentBody: {
         marginTop: 4,
+        maxWidth: '80%',
+    },
+    commentDate: {
+        marginTop: 4,
+        fontSize: 12,
     },
     commentAvatar: {
         width: 40,

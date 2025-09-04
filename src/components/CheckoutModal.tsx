@@ -1,5 +1,13 @@
 import React from 'react';
-import { Modal, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+    Modal,
+    View,
+    Text,
+    StyleSheet,
+    TouchableOpacity,
+    useColorScheme,
+} from 'react-native';
+import { getColors } from '../constants/colors';
 
 interface CheckoutModalProps {
     visible: boolean;
@@ -27,6 +35,8 @@ export const CheckoutModal = ({
     onClose,
     status,
 }: CheckoutModalProps) => {
+    const scheme = useColorScheme();
+    const colors = getColors(scheme);
     return (
         <Modal
             visible={visible}
@@ -34,16 +44,27 @@ export const CheckoutModal = ({
             animationType="fade"
             onRequestClose={onClose}
         >
-            <View style={styles.overlay}>
-                <View style={styles.modalContent}>
-                    <Text style={styles.title}>
+            <View style={[styles.overlay]}>
+                <View
+                    style={[
+                        styles.modalContent,
+                        { backgroundColor: colors.card },
+                    ]}
+                >
+                    <Text style={[styles.title, { color: colors.primary }]}>
                         {statusMessages[status].title}
                     </Text>
-                    <Text style={styles.message}>
+                    <Text style={[styles.message, { color: colors.text }]}>
                         {statusMessages[status].message}
                     </Text>
-                    <TouchableOpacity style={styles.button} onPress={onClose}>
-                        <Text style={styles.buttonText}>
+                    <TouchableOpacity
+                        style={[
+                            styles.button,
+                            { backgroundColor: colors.primary },
+                        ]}
+                        onPress={onClose}
+                    >
+                        <Text style={[styles.buttonText]}>
                             {statusMessages[status].buttonText}
                         </Text>
                     </TouchableOpacity>

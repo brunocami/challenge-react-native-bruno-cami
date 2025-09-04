@@ -1,0 +1,154 @@
+[
+  {
+    "id": 1,
+    "username": "maria.perez",
+    "email": "Eliseo@gardner.biz",
+    "body": "La remera quedó bien después de varios lavados, no destiñó y el talle M vino justo. Tela un poco fina, pero por el precio va.",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
+    "timestamp": 1752956292
+  },
+  {
+    "id": 2,
+    "username": "lucas_ri",
+    "email": "Jayne_Kuhic@sydney.com",
+    "body": "El TV 55'' se ve bárbaro para pelis y la app de Netflix anda fluida. El sonido es meh, recomiendo una barra.",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
+    "timestamp": 1753957125
+  },
+  {
+    "id": 3,
+    "username": "sofi.g_",
+    "email": "Nikita@garfield.biz",
+    "body": "Los auriculares tienen buen grave y el mic capta claro en videollamadas. La batería me dura dos jornadas sin drama.",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/3.jpeg",
+    "timestamp": 1726957399
+  },
+  {
+    "id": 4,
+    "username": "fer_dominguez",
+    "email": "Lew@alysha.tv",
+    "body": "La campera es liviana y corta bien el viento. Ojo con el talle: pedí uno más grande del habitual.",
+    "timestamp": 1706957608
+  },
+  {
+    "id": 5,
+    "username": "cami.varela",
+    "email": "Hayden@althea.biz",
+    "body": "El teclado mecánico es silencioso y el build se siente sólido. Las keycaps no se borran, 10 puntos para home office.",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/4.jpeg",
+    "timestamp": 1756157814
+  },
+  {
+    "id": 6,
+    "username": "mati.codes",
+    "email": "Presley.Mueller@myrl.com",
+    "body": "Instalé el SSD y la notebook vuela. Cloné el sistema en 20 min y arranca en 8 segundos. Excelente upgrade.",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/5.jpeg",
+    "timestamp": 1752957991
+  },
+  {
+    "id": 7,
+    "username": "flor.alonso",
+    "email": "Dallas@ole.me",
+    "body": "La mochila para notebook entra perfecta de 15''. Costuras firmes y varios bolsillos útiles. Impermeable de verdad.",
+    "timestamp": 1756958156
+  },
+  {
+    "id": 8,
+    "username": "niko_ram",
+    "email": "Mallory_Kunze@marie.org",
+    "body": "La placa de video rinde bien en 1080p alto, pero calienta si no tenés buen airflow. Incluye backplate.",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/6.jpeg",
+    "timestamp": 1753958330
+  },
+  {
+    "id": 9,
+    "username": "agus.mendez",
+    "email": "Meghan_Littel@rene.us",
+    "body": "El mouse es cómodo para mano chica y el sensor no hace jitter. El cable un poco rígido, nada grave.",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/7.jpeg",
+    "timestamp": 1756458512
+  },
+  {
+    "id": 10,
+    "username": "rochi_sa",
+    "email": "Carmen_Keeling@caroline.username",
+    "body": "Pantalón jogger tal cual la foto. Elástico firme, no se afloja. Lo usé todo el día y no se arruga.",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/8.jpeg",
+    "timestamp": 1716958721
+  },
+  {
+    "id": 11,
+    "username": "gaston.v",
+    "email": "Veronica_Goodwin@timmothy.net",
+    "body": "El monitor 144Hz llegó sin píxeles muertos. Colores bien de fábrica y base estable. Menú OSD intuitivo.",
+    "timestamp": 1656958890
+  },
+  {
+    "id": 12,
+    "username": "vale_sant",
+    "email": "Oswald.Vandervort@leanne.org",
+    "body": "La funda del celular encaja perfecto y no agrega mucho volumen. Los bordes levantados protegen la cámara.",
+    "timestamp": 1656959055
+  },
+  {
+    "id": 13,
+    "username": "bruno.ar",
+    "email": "Kariane@jadyn.tv",
+    "body": "Fuente 650W certificada, cero coil whine. Cables largos y bien rotulados. Silenciosa incluso con carga.",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/9.jpeg",
+    "timestamp": 1356959228
+  },
+  {
+    "id": 14,
+    "username": "anita.pm",
+    "email": "Nathan@solon.io",
+    "body": "Las zapatillas son cómodas para caminar todo el día. La horma es amplia y no me hicieron ampollas.",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/10.jpeg",
+    "timestamp": 1749959416
+  },
+  {
+    "id": 15,
+    "username": "tomi_ig",
+    "email": "Maynard.Hodkiewicz@roberta.com",
+    "body": "El mic USB suena claro y con poco ruido. Ideal para streaming o calls. Trae brazo articulado decente.",
+    "timestamp": 1753869599
+  },
+  {
+    "id": 16,
+    "username": "caro.r",
+    "email": "Christine@ayana.info",
+    "body": "La cafetera es simple y rápida. El vaso térmico mantiene caliente una hora y no pierde.",
+    "timestamp": 1756959783
+  },
+  {
+    "id": 17,
+    "username": "seba_tech",
+    "email": "Preston_Hudson@blaise.tv",
+    "body": "Memorias 16GB 3200 instaladas sin drama. XMP activó a la primera y noté mejora en apps pesadas.",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/11.jpeg",
+    "timestamp": 1756109964
+  },
+  {
+    "id": 18,
+    "username": "juli.gomez",
+    "email": "Vincenza_Klocko@albertha.username",
+    "body": "El smartwatch mide bien pasos y pulso. Notificaciones llegan al toque. Correa cómoda para dormir.",
+    "timestamp": 1756310122
+  },
+  {
+    "id": 19,
+    "username": "pablo.lo",
+    "email": "Madelynn.Gorczany@darion.biz",
+    "body": "La webcam tiene buena imagen incluso con poca luz. El autofocus no caza a lo loco, bastante estable.",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/12.jpeg",
+    "timestamp": 1752969711
+  },
+  {
+    "id": 20,
+    "username": "mica.ortega",
+    "email": "Mariana_Orn@preston.org",
+    "body": "Cargador 65W compacto, carga la notebook y el celu sin calentarse. Trae cable USB-C de buena calidad.",
+    "timestamp": 1756960488
+  }
+]

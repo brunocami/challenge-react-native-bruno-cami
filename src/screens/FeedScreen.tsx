@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import {
     ActivityIndicator,
-    Button,
     FlatList,
     StyleSheet,
     Text,
@@ -160,7 +159,9 @@ export default function FeedScreen() {
             </View>
 
             <FlatList
-                data={comments.slice(0, visibleCount)}
+                data={[...comments]
+                    .sort((a, b) => b.timestamp - a.timestamp)
+                    .slice(0, visibleCount)}
                 keyExtractor={item => item.id.toString()}
                 renderItem={renderFeedCard}
                 showsVerticalScrollIndicator={false}
