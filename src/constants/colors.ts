@@ -8,6 +8,7 @@ const light = {
   secondary: '#FF6600',
   border: '#E0E0E0',
   card: '#F5F5F5',
+  error: '#FF4444'
 };
 
 // Dark
@@ -18,6 +19,7 @@ const dark = {
   secondary: '#FF8844',
   border: '#444444',
   card: '#1E1E1E',
+  error: '#FF4444',
 };
 
 export const getColors = (scheme: ColorSchemeName) => {
