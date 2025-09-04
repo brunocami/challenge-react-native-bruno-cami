@@ -99,10 +99,7 @@ export default function CheckoutScreen() {
                     <View style={styles.cardSelectedContainer}>
                         <Image
                             source={cardImages[paymentMethod.bank]}
-                            style={[
-                                styles.cardSelectedImage,
-                                { backgroundColor: colors.card },
-                            ]}
+                            style={[styles.cardSelectedImage]}
                         />
                         <View style={styles.cardSelectedContent}>
                             <Text
@@ -216,6 +213,7 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         marginRight: 12,
         resizeMode: 'contain',
+        backgroundColor: '#F5F5F5',
     },
     cardSelectedContent: {
         flex: 1,

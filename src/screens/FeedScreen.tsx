@@ -17,6 +17,8 @@ import { RootStackParamList } from '../types/Tab';
 import { Comment } from '../types/Feed';
 import { useFeed } from '../hooks/Feed';
 
+const maxItems = 12;
+
 export default function FeedScreen() {
     const scheme = useColorScheme();
     const colors = getColors(scheme);
@@ -46,60 +48,62 @@ export default function FeedScreen() {
         </View>;
     }
 
+    const renderFeedCard = ({ item }: { item: Comment }) => (
+        <View
+            style={[styles.commentContainer, { backgroundColor: colors.card }]}
+        >
+            <View style={styles.commentAvatarContainer}>
+                {item.avatar ? (
+                    <Image
+                        source={{ uri: item.avatar }}
+                        style={styles.commentAvatar}
+                    />
+                ) : (
+                    <View style={[styles.commentAvatar, styles.avatarCircle]}>
+                        <Text style={[{ color: colors.text }]}>
+                            {item.email?.[0]?.toUpperCase() || '?'}
+                        </Text>
+                    </View>
+                )}
+            </View>
+            <View style={styles.commentInfoContainer}>
+                <Text style={[styles.commentAuthor, { color: colors.text }]}>
+                    {item.email}
+                </Text>
+                <Text style={[styles.commentBody, { color: colors.text }]}>
+                    {item.body}
+                </Text>
+            </View>
+        </View>
+    );
+
     return (
         <View
             style={[styles.container, { backgroundColor: colors.background }]}
         >
-            <Button
-                title="Cerrar sesión"
-                onPress={async () => {
-                    await signOut();
-                    navigation.reset({ index: 0, routes: [{ name: 'Login' }] });
-                }}
-            />
+            <View style={styles.logoutContainer}>
+                <View style={styles.commentsCountContainer}>
+                    <Text style={[{ color: colors.text }]}>Comentarios</Text>
+                    <Text style={[styles.commentsCount]}>
+                        {comments.length}
+                    </Text>
+                </View>
+                <Button
+                    title="Cerrar sesión"
+                    onPress={async () => {
+                        await signOut();
+                        navigation.reset({
+                            index: 0,
+                            routes: [{ name: 'Login' }],
+                        });
+                    }}
+                />
+            </View>
 
             <FlatList
-                data={comments}
+                data={comments.slice(0, maxItems || 12)}
                 keyExtractor={item => item.id.toString()}
-                renderItem={({ item }: { item: Comment }) => (
-                    <View
-                        style={[
-                            styles.commentContainer,
-                            { backgroundColor: colors.card },
-                        ]}
-                    >
-                        {item.avatar ? (
-                            <Image
-                                source={{ uri: item.avatar }}
-                                style={styles.commentAvatar}
-                            />
-                        ) : (
-                            <View
-                                style={[
-                                    styles.commentAvatar,
-                                    styles.avatarCircle,
-                                ]}
-                            >
-                                <Text style={[{ color: colors.text }]}>
-                                    {item.email?.[0]?.toUpperCase() || '?'}
-                                </Text>
-                            </View>
-                        )}
-                        <Text
-                            style={[
-                                styles.commentAuthor,
-                                { color: colors.text },
-                            ]}
-                        >
-                            {item.email}
-                        </Text>
-                        <Text
-                            style={[styles.commentBody, { color: colors.text }]}
-                        >
-                            {item.body}
-                        </Text>
-                    </View>
-                )}
+                renderItem={renderFeedCard}
                 showsVerticalScrollIndicator={false}
             />
         </View>
@@ -109,18 +113,45 @@ export default function FeedScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 16,
     },
     centered: {
         justifyContent: 'center',
         alignItems: 'center',
     },
-    commentContainer: {
-        marginBottom: 12,
+    logoutContainer: {
         padding: 12,
-        borderWidth: 1,
-        borderColor: '#ccc',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    commentsCountContainer: {
+        padding: 12,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    commentsCount: {
+        fontWeight: 'bold',
+        backgroundColor: '#4CAF50',
+        padding: 8,
+        borderRadius: 50,
+        marginLeft: 12,
+        color: '#fff',
+    },
+    commentContainer: {
+        padding: 12,
         borderRadius: 8,
+        flexDirection: 'row',
+    },
+    commentAvatarContainer: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        marginRight: 12,
+        overflow: 'hidden',
+    },
+    commentInfoContainer: {
+        width: '85%',
+        flex: 1,
     },
     commentAuthor: {
         fontWeight: 'bold',

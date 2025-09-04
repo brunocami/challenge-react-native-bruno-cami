@@ -1,6 +1,11 @@
 import React from 'react';
 import LoginScreen from '../screens/LoginScreen';
-import { ActivityIndicator, View, StyleSheet } from 'react-native';
+import {
+    ActivityIndicator,
+    View,
+    StyleSheet,
+    useColorScheme,
+} from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { AppTabParamList, RootStackParamList } from '../types/Tab';
@@ -9,11 +14,14 @@ import ProductsScreen from '../screens/ProductsScreen';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
 import { useAuth } from '../context/AuthContext';
 import CheckoutScreen from '../screens/Checkout';
+import { getColors } from '../constants/colors';
 
 const Tab = createBottomTabNavigator<AppTabParamList>();
 const Stack = createStackNavigator<RootStackParamList>();
 
 function TabNavigator() {
+    const scheme = useColorScheme();
+    const colors = getColors(scheme);
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
@@ -29,6 +37,10 @@ function TabNavigator() {
                 },
                 tabBarActiveTintColor: '#4CAF50',
                 tabBarInactiveTintColor: 'gray',
+                tabBarStyle: {
+                    backgroundColor: colors.background,
+                    height: 60,
+                },
             })}
         >
             <Tab.Screen name="Feed" component={FeedScreen} />

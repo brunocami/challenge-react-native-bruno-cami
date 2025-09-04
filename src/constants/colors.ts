@@ -16,7 +16,7 @@ const dark = {
   text: '#FFFFFF',
   primary: '#3399FF',
   secondary: '#FF8844',
-  border: '#333333',
+  border: '#444444',
   card: '#1E1E1E',
 };
 
