@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import {
     ActivityIndicator,
     FlatList,
@@ -17,11 +17,28 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../types/Tab';
 
+const PAGE_SIZE = 12;
+
 export default function ProductsScreen() {
+    const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
     const scheme = useColorScheme();
     const colors = getColors(scheme);
-    const { products, loading, error } = useProducts();
+    const { products, loading, error, fetchProducts } = useProducts();
+
+    const handleEndReached = useCallback(async () => {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        if (visibleCount < products.length) {
+            setVisibleCount(prev =>
+                Math.min(prev + PAGE_SIZE, products.length),
+            );
+        }
+    }, [visibleCount, products.length]);
+
+    // Reset visibleCount when products are refreshed
+    React.useEffect(() => {
+        setVisibleCount(PAGE_SIZE);
+    }, [products]);
 
     const renderProductCard = ({ item }: { item: Product }) => (
         <TouchableOpacity
@@ -104,6 +121,15 @@ export default function ProductsScreen() {
                 numColumns={2}
                 columnWrapperStyle={styles.flatListContainer}
                 showsVerticalScrollIndicator={false}
+                refreshing={loading}
+                onRefresh={fetchProducts}
+                onEndReached={handleEndReached}
+                onEndReachedThreshold={0.2}
+                ListFooterComponent={
+                    visibleCount < products.length && !loading ? (
+                        <ActivityIndicator style={{ margin: 16 }} />
+                    ) : null
+                }
             />
         </View>
     );
