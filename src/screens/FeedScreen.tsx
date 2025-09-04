@@ -136,9 +136,16 @@ export default function FeedScreen() {
                 )}
             </View>
             <View style={styles.commentInfoContainer}>
-                <Text style={[styles.commentAuthor, { color: colors.text }]}>
-                    {item.email}
-                </Text>
+                <View style={styles.commentHeaderContainer}>
+                    <Text
+                        style={[styles.commentAuthor, { color: colors.text }]}
+                    >
+                        {item.email}
+                    </Text>
+                    <Text style={[styles.commentBody, { color: colors.text }]}>
+                        {new Date(item.timestamp * 1000).toLocaleDateString()}
+                    </Text>
+                </View>
                 <Text style={[styles.commentBody, { color: colors.text }]}>
                     {item.body}
                 </Text>
@@ -244,6 +251,12 @@ const styles = StyleSheet.create({
     commentInfoContainer: {
         width: '85%',
         flex: 1,
+    },
+    commentHeaderContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: 4,
     },
     commentAuthor: {
         fontWeight: 'bold',
