@@ -4,4 +4,5 @@ export type PaymentMethod = {
     cvv: string;
     cardHolderName: string;
     type: 'credit' | 'debit';
+    bank: string;
 };

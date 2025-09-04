@@ -13,9 +13,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../types/Tab';
 import { getColors } from '../constants/colors';
 
-type Props = { onLoginSuccess?: () => void };
-
-const LoginScreen: React.FC<Props> = () => {
+const LoginScreen = () => {
     const scheme = useColorScheme();
     const colors = getColors(scheme);
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();

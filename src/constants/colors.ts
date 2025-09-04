@@ -7,7 +7,7 @@ const light = {
   primary: '#0066CC',
   secondary: '#FF6600',
   border: '#E0E0E0',
-  card: '#FFFFFF',
+  card: '#F5F5F5',
 };
 
 // Dark

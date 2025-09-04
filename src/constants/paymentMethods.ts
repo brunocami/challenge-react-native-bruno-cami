@@ -7,6 +7,7 @@ export const PAYMENT_METHODS: PaymentMethod[] = [
         cvv: '123',
         cardHolderName: 'John Doe',
         type: 'credit',
+        bank: 'Mastercard',
     },
     {
         cardNumber: '5500000000000004',
@@ -14,5 +15,6 @@ export const PAYMENT_METHODS: PaymentMethod[] = [
         cvv: '456',
         type: 'debit',
         cardHolderName: 'Jane Smith',
+        bank: 'Visa',
     },
 ];

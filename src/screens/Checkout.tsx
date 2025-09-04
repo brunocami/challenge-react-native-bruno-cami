@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Image,
     ScrollView,
@@ -13,19 +13,50 @@ import { Product } from '../types/Products';
 import { getColors } from '../constants/colors';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
 import useCheckout from '../hooks/Checkout';
+import CheckoutModal from '../components/CheckoutModal';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../types/Tab';
+import ChagePaymentMethodModal from '../components/ChagePaymentMethodModal';
+
+const cardImages: Record<string, any> = {
+    Mastercard: require('../assets/images/Mastercard.png'),
+    Visa: require('../assets/images/Visa.png'),
+};
 
 export default function CheckoutScreen() {
-    const navigation = useNavigation();
+    const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
     const scheme = useColorScheme();
     const colors = getColors(scheme);
     const route = useRoute();
     const { item } = route.params as { item: Product };
-    const { paymentMethod } = useCheckout();
+    const { paymentMethod, changePaymentMethod } = useCheckout();
+    const [isModalVisible, setModalVisible] = useState(false);
+    const [
+        isChangePaymentMethodModalVisible,
+        setChangePaymentMethodModalVisible,
+    ] = useState(false);
 
     return (
         <View
             style={[styles.container, { backgroundColor: colors.background }]}
         >
+            <CheckoutModal
+                status={'success'}
+                visible={isModalVisible}
+                onClose={() => {
+                    setModalVisible(false);
+                    navigation.reset({ index: 0, routes: [{ name: 'Main' }] });
+                }}
+            />
+            <ChagePaymentMethodModal
+                visible={isChangePaymentMethodModalVisible}
+                onClose={() => setChangePaymentMethodModalVisible(false)}
+                selectedMethod={paymentMethod}
+                onSelect={method => {
+                    changePaymentMethod(method);
+                }}
+            />
+
             <TouchableOpacity
                 style={styles.goBackbtn}
                 onPress={() => {
@@ -67,8 +98,11 @@ export default function CheckoutScreen() {
                     </Text>
                     <View style={styles.cardSelectedContainer}>
                         <Image
-                            source={require('../assets/images/Mastercard.png')}
-                            style={styles.cardSelectedImage}
+                            source={cardImages[paymentMethod.bank]}
+                            style={[
+                                styles.cardSelectedImage,
+                                { backgroundColor: colors.card },
+                            ]}
                         />
                         <View style={styles.cardSelectedContent}>
                             <Text
@@ -85,13 +119,13 @@ export default function CheckoutScreen() {
                                     : ''}
                             </Text>
                             <Text style={[{ color: colors.text }]}>
-                                IT ROCK
+                                {paymentMethod.cardHolderName.toUpperCase()}
                             </Text>
                         </View>
                         <TouchableOpacity
                             style={styles.changePaymentBtn}
                             onPress={() => {
-                                // Handle edit payment method
+                                setChangePaymentMethodModalVisible(true);
                             }}
                         >
                             <MaterialIcons
@@ -123,6 +157,7 @@ export default function CheckoutScreen() {
                     styles.checkoutBtn,
                     { backgroundColor: colors.primary },
                 ]}
+                onPress={() => setModalVisible(true)}
             >
                 <Text style={styles.checkoutBtnText}>Confirmar compra</Text>
             </TouchableOpacity>
@@ -178,7 +213,7 @@ const styles = StyleSheet.create({
     cardSelectedImage: {
         width: 50,
         height: 50,
-        borderRadius: 4,
+        borderRadius: 25,
         marginRight: 12,
         resizeMode: 'contain',
     },

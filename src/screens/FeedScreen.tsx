@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    ActivityIndicator,
     Button,
     FlatList,
     Image,
@@ -24,11 +25,25 @@ export default function FeedScreen() {
     const { comments, loading, error } = useFeed();
 
     if (loading) {
-        return <Text>Cargando...</Text>;
+        return (
+            <View
+                style={[
+                    styles.container,
+                    styles.centered,
+                    { backgroundColor: colors.background },
+                ]}
+            >
+                <ActivityIndicator size="large" />
+            </View>
+        );
     }
 
     if (error) {
-        return <Text>Error: {error}</Text>;
+        <View
+            style={[styles.container, { backgroundColor: colors.background }]}
+        >
+            <Text>Error: {error}</Text>
+        </View>;
     }
 
     return (
@@ -85,6 +100,7 @@ export default function FeedScreen() {
                         </Text>
                     </View>
                 )}
+                showsVerticalScrollIndicator={false}
             />
         </View>
     );
@@ -94,6 +110,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 16,
+    },
+    centered: {
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     commentContainer: {
         marginBottom: 12,
