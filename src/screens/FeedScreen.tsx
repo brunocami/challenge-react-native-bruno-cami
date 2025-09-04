@@ -137,9 +137,6 @@ export default function FeedScreen() {
             <View style={styles.logoutContainer}>
                 <View style={styles.commentsCountContainer}>
                     <Text style={[{ color: colors.text }]}>Comentarios</Text>
-                    <Text style={[styles.commentsCount]}>
-                        {comments.length}
-                    </Text>
                 </View>
                 <TouchableOpacity
                     onPress={async () => {

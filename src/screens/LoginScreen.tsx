@@ -6,6 +6,8 @@ import {
     Button,
     StyleSheet,
     useColorScheme,
+    Image,
+    TouchableOpacity,
 } from 'react-native';
 import { useAuth } from '../context/AuthContext';
 import { useNavigation } from '@react-navigation/native';
@@ -35,6 +37,10 @@ const LoginScreen = () => {
         <View
             style={[styles.container, { backgroundColor: colors.background }]}
         >
+            <Image
+                source={require('../assets/images/icon.png')}
+                style={styles.logo}
+            />
             <Text style={[styles.title, { color: colors.text }]}>
                 Iniciar sesión
             </Text>
@@ -65,7 +71,10 @@ const LoginScreen = () => {
                     setUser(prev => ({ ...prev, password }))
                 }
             />
-            <Button title="Ingresar" onPress={handleLogin} />
+            {/* <Button title="Ingresar" onPress={handleLogin} /> */}
+            <TouchableOpacity onPress={handleLogin} style={styles.button}>
+                <Text style={[styles.buttonText]}>Ingresar</Text>
+            </TouchableOpacity>
         </View>
     );
 };
@@ -75,6 +84,12 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         padding: 16,
+    },
+    logo: {
+        width: 120,
+        height: 120,
+        alignSelf: 'center',
+        marginBottom: 20,
     },
     title: {
         fontSize: 22,
@@ -88,6 +103,17 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         padding: 12,
         marginBottom: 12,
+    },
+    button: {
+        backgroundColor: '#4CAF50',
+        padding: 12,
+        borderRadius: 8,
+    },
+    buttonText: {
+        textAlign: 'center',
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#FFF',
     },
 });
 
