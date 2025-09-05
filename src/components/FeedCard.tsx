@@ -21,7 +21,7 @@ export default function FeedCard({ item }: { item: Comment }) {
                 ) : (
                     <View style={[styles.commentAvatar, styles.avatarCircle]}>
                         <Text style={[{ color: colors.text }]}>
-                            {item.email?.slice(0, 2).toUpperCase() || '??'}
+                            {item.username?.slice(0, 2).toUpperCase() || '??'}
                         </Text>
                     </View>
                 )}
@@ -31,7 +31,7 @@ export default function FeedCard({ item }: { item: Comment }) {
                     <Text
                         style={[styles.commentAuthor, { color: colors.text }]}
                     >
-                        {item.email}
+                        {item.username}
                     </Text>
                     <Text
                         style={[
@@ -53,7 +53,6 @@ export default function FeedCard({ item }: { item: Comment }) {
 const styles = StyleSheet.create({
     commentContainer: {
         padding: 12,
-        borderRadius: 8,
         flexDirection: 'row',
     },
     commentAvatarContainer: {
@@ -75,6 +74,7 @@ const styles = StyleSheet.create({
     },
     commentAuthor: {
         fontWeight: 'bold',
+        maxWidth: '75%'
     },
     commentBody: {
         marginTop: 4,
@@ -82,7 +82,8 @@ const styles = StyleSheet.create({
     },
     commentDate: {
         marginTop: 4,
-        fontSize: 12,
+        fontSize: 10,
+        maxWidth: '25%'
     },
     commentAvatar: {
         width: 40,
