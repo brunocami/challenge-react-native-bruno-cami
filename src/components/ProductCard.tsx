@@ -28,6 +28,7 @@ export default function ProductCard({ item }: { item: Product }) {
                 styles.itemContainer,
                 {
                     borderColor: colors.border,
+                    backgroundColor: colors.card
                 },
             ]}
         >
