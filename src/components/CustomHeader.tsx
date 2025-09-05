@@ -7,6 +7,7 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import { getColors } from '../constants/colors';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
 import { useAuth } from '../context/AuthContext';
 import { useNavigation } from '@react-navigation/native';
@@ -22,9 +23,17 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({ title }) => {
     const colors = getColors(scheme);
     const { signOut } = useAuth();
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+    const insets = useSafeAreaInsets();
     return (
         <View
-            style={[styles.container, { backgroundColor: colors.background }]}
+            style={[
+                styles.container,
+                {
+                    backgroundColor: colors.background,
+                    paddingTop: insets.top,
+                    height: 60 + insets.top,
+                },
+            ]}
         >
             {title === 'Feed' ? (
                 <View style={styles.logoutContainer}>
