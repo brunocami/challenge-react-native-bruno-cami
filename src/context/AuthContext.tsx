@@ -60,6 +60,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren> = ({
             const storedUser = await loadString(STORAGE_KEYS.user);
             const { email } = JSON.parse(storedUser || '{}');
             const ok = email === VALID_EMAIL;
+            await new Promise(resolve => setTimeout(resolve, 2000));
             dispatch({
                 type: 'RESTORE',
                 user: ok ? { id: '1', email } : undefined,

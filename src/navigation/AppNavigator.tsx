@@ -8,6 +8,7 @@ import {
     View,
     StyleSheet,
     useColorScheme,
+    Image,
 } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -20,6 +21,7 @@ import CheckoutScreen from '../screens/Checkout';
 import { getColors } from '../constants/colors';
 
 import CustomHeader from '../components/CustomHeader';
+import { Text } from 'react-native-gesture-handler';
 
 const Tab = createBottomTabNavigator<AppTabParamList>();
 const Stack = createStackNavigator<RootStackParamList>();
@@ -67,7 +69,11 @@ const AppNavigator: React.FC = () => {
     if (status === 'loading') {
         return (
             <View style={styles.centered}>
-                <ActivityIndicator size="large" />
+                <Image
+                    source={require('../assets/images/icon.png')}
+                    style={{ width: 100, height: 100 }}
+                    resizeMode="contain"
+                />
             </View>
         );
     }
