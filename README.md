@@ -62,6 +62,34 @@ index.js
 
 ---
 
+## Decisiones técnicas
+
+- **Context + useReducer**: Implente context ya que el proyecto era relativamente pequeño y resultaba mas sencillo de implementar sobre Redux toolkit
+
+- **Mock**: utilice mock en assets/feed.json para los comentarios debido a que la API JSONPlaceHolder no proporcionaba datos coherentes con el proyecto (body del comment lorem ipsum)
+
+- **FakeStoreAPI**: Por otro lado para los productos los datos de FakeStoreAPI resultaban mas convincentes.
+
+- **StyleSheet**: Elegí StyleSheet nativo sobre styled-components ya que la UI era relativamente sencilla y no justificaba agregar dependencias adicionales.
+
+---
+
+## Flujos principales
+
+## Login Flow
+![Login Demo](src/assets/login-flow.gif)
+
+**Feed**
+![Feed demo](src/assets/feed-flow.gif)
+
+**Productos**
+![Productos demo](src/assets/products-flow.gif)
+
+**Checkout**
+![Checkout demo](src/assets/checkout-flow.gif)
+
+---
+
 ## Credenciales de demo para el challenge
 - **email**: `test@it.rock`  
 - **password**: `123456`  
