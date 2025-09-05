@@ -4,9 +4,10 @@ App de marketplace con **login**, **persistencia de sesión**, **tabs** (Feed / 
 
 ## Resumen del flujo
 1) **Login** (email/pass hardcodeado) → valida y persiste sesión en AsyncStorage.  
-2) **Tabs**:  
-   - **Feed**: 
-   - **Productos**: 
+2) **Tabs**:  Utiliza header personalizado con `react-native-safe-area-context` para adaptarse facilmente a todos los dispositivos
+   - **Feed**: Lista hardcodeada en assets/feed.json. Manejo de error y estado de carga
+   - **Productos**: Lista consumida de la api `FakeStoreAPI`. Manejo de error y estado de carga
+   - **Checkout**: Presentantion tipo modal para confirmar la compra. Opción de cambiar el metodo de pago (ambos hardcodeados en asset/payment_methods.json). Luego de confirma abre modal de confirmacion y vuelve a Feed.
 3) **Cerrar sesión**: limpia AsyncStorage y vuelve al login.
 
 ---
@@ -70,7 +71,7 @@ index.js
 ---
 
 ## Setup y ejecución (npm)
-> Requisitos previos: Node LTS, JDK 17+, Android SDK.
+> Requisitos previos: Node (v20.19.4 utilizada), JDK 17+, Android SDK.
 
 1) **Instalar dependencias**
 ```bash
@@ -88,3 +89,33 @@ npx react-native run-android
 ```bash
 npx react-native run-ios
 ```
+
+
+---
+
+## Criterios de aceptación
+
+1) **Login**
+- [x] Ingreso con credenciales válidas permite navegar a Tabs.
+- [x] Persistencia: reabrir la app mantiene sesión (va directo a Feed).
+- [x] Cerrar sesión: limpia AsyncStorage y vuelve al login.
+
+2) **Navegación**
+
+- [x] Bottom Tabs con Feed (default) y Productos.
+- [x] Back/gestos funcionan sin loops extraños.
+
+3) **Feed**
+- [x] Lista renderiza avatar o iniciales, nombre, fecha‑hora, comentario.
+- [x] Cubre estados: loading, vacío, error.
+- [x] Origen mock local (assets/feed.json) .
+- [x] Pull‑to‑refresh y paginación.
+
+4)  Productos
+- [x] Lista con imagen, título y precio.
+- [x] Tap → checkout → feedback visual (modal).
+- [x] Cubre estados: loading, vacío, error.
+
+6) Cross‑platform
+- [x] Proyecto corre en Android e iOS con instrucciones claras para build/run
+en README.

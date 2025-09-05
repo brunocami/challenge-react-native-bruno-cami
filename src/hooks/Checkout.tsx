@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { PaymentMethod } from '../types/checkout';
-import { PAYMENT_METHODS } from '../constants/paymentMethods';
+import PAYMENT_METHODS from '../assets/payment_methods.json';
 
 type UseProductsReturn = {
     paymentMethod: PaymentMethod;
@@ -9,7 +9,7 @@ type UseProductsReturn = {
 
 const useCheckout = (): UseProductsReturn => {
     const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(
-        PAYMENT_METHODS[0],
+        PAYMENT_METHODS[0] as PaymentMethod,
     );
 
     const changePaymentMethod = (newMethod: PaymentMethod) => {

@@ -8,7 +8,7 @@ import {
     FlatList,
     useColorScheme,
 } from 'react-native';
-import { PAYMENT_METHODS } from '../constants/paymentMethods';
+import PAYMENT_METHODS from '../assets/payment_methods.json';
 import { PaymentMethod } from '../types/checkout';
 import { getColors } from '../constants/colors';
 
