@@ -79,13 +79,13 @@ index.js
 ## Login Flow
 ![Login Demo](src/assets/login-flow.gif)
 
-**Feed**
+## Feed
 ![Feed demo](src/assets/feed-flow.gif)
 
-**Productos**
+## Productos
 ![Productos demo](src/assets/products-flow.gif)
 
-**Checkout**
+## Checkout
 ![Checkout demo](src/assets/checkout-flow.gif)
 
 ---
