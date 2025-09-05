@@ -2,7 +2,6 @@ import React, { useCallback, useState } from 'react';
 import {
     ActivityIndicator,
     FlatList,
-    Text,
     useColorScheme,
     View,
 } from 'react-native';
@@ -11,6 +10,8 @@ import { getColors } from '../constants/colors';
 import { StyleSheet } from 'react-native';
 import { Product } from '../types/Products';
 import ProductCard from '../components/ProductCard';
+import ErrorCard from '../components/ErrorCard';
+import NotFoundCard from '../components/NotFoundCard';
 
 const PAGE_SIZE = 10;
 
@@ -53,17 +54,11 @@ export default function ProductsScreen() {
     }
 
     if (error) {
-        return (
-            <View
-                style={[
-                    styles.container,
-                    styles.centered,
-                    { backgroundColor: colors.background },
-                ]}
-            >
-                <Text>Error: {error}</Text>
-            </View>
-        );
+        return <ErrorCard error={error} retry={fetchProducts} />;
+    }
+
+    if (products.length === 0) {
+        return <NotFoundCard title="No hay productos" />;
     }
 
     return (
@@ -83,7 +78,7 @@ export default function ProductsScreen() {
                 onEndReachedThreshold={0.2}
                 ListFooterComponent={
                     visibleCount < products.length && !loading ? (
-                        <ActivityIndicator style={{ margin: 16 }} />
+                        <ActivityIndicator style={styles.activityIndicator} />
                     ) : null
                 }
             />
@@ -102,4 +97,5 @@ const styles = StyleSheet.create({
     flatListContainer: {
         justifyContent: 'space-between',
     },
+    activityIndicator: { margin: 16 },
 });

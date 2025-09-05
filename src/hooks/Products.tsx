@@ -5,14 +5,17 @@ import { Product } from '../types/Products';
 type UseProductsReturn = {
     products: Product[];
     loading: boolean;
-    error: string | null;
+    error: { title: string; message: string } | null;
     fetchProducts: () => Promise<void>;
 };
 
 const useProducts = (): UseProductsReturn => {
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const [error, setError] = useState<{
+        title: string;
+        message: string;
+    } | null>(null);
 
     const fetchProducts = useCallback(async () => {
         setLoading(true);
@@ -21,7 +24,10 @@ const useProducts = (): UseProductsReturn => {
             const response = await getProducts();
             setProducts(response);
         } catch (err: any) {
-            setError(err.message || 'Error fetching products');
+            setError({
+                title: 'Error fetching products',
+                message: err.message || 'Unknown error',
+            });
         } finally {
             setLoading(false);
         }
