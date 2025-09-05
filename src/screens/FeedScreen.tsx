@@ -8,11 +8,7 @@ import {
     useColorScheme,
     View,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import type { StackNavigationProp } from '@react-navigation/stack';
-import { useAuth } from '../context/AuthContext';
 import { getColors } from '../constants/colors';
-import { RootStackParamList } from '../types/Tab';
 import { Comment } from '../types/Feed';
 import { useFeed } from '../hooks/Feed';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
@@ -24,8 +20,6 @@ export default function FeedScreen() {
     const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
     const scheme = useColorScheme();
     const colors = getColors(scheme);
-    const { signOut } = useAuth();
-    const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
     const { comments, loading, error, fetchComments } = useFeed();
 
     const handleEndReached = useCallback(async () => {
@@ -51,23 +45,6 @@ export default function FeedScreen() {
                     { backgroundColor: colors.background },
                 ]}
             >
-                <View style={styles.logoutContainerLoading}>
-                    <TouchableOpacity
-                        onPress={async () => {
-                            await signOut();
-                            navigation.reset({
-                                index: 0,
-                                routes: [{ name: 'Login' }],
-                            });
-                        }}
-                    >
-                        <MaterialIcons
-                            name="logout"
-                            size={24}
-                            color={colors.text}
-                        />
-                    </TouchableOpacity>
-                </View>
                 <ActivityIndicator size="large" />
             </View>
         );
@@ -82,23 +59,6 @@ export default function FeedScreen() {
                     { backgroundColor: colors.background },
                 ]}
             >
-                <View style={styles.logoutContainerLoading}>
-                    <TouchableOpacity
-                        onPress={async () => {
-                            await signOut();
-                            navigation.reset({
-                                index: 0,
-                                routes: [{ name: 'Login' }],
-                            });
-                        }}
-                    >
-                        <MaterialIcons
-                            name="logout"
-                            size={24}
-                            color={colors.text}
-                        />
-                    </TouchableOpacity>
-                </View>
                 <View
                     style={[
                         styles.errorContainer,
@@ -134,27 +94,6 @@ export default function FeedScreen() {
         <View
             style={[styles.container, { backgroundColor: colors.background }]}
         >
-            <View style={styles.logoutContainer}>
-                <View style={styles.commentsCountContainer}>
-                    <Text style={[{ color: colors.text }]}>Comentarios</Text>
-                </View>
-                <TouchableOpacity
-                    onPress={async () => {
-                        await signOut();
-                        navigation.reset({
-                            index: 0,
-                            routes: [{ name: 'Login' }],
-                        });
-                    }}
-                >
-                    <MaterialIcons
-                        name="logout"
-                        size={24}
-                        color={colors.text}
-                    />
-                </TouchableOpacity>
-            </View>
-
             <FlatList
                 data={[...comments]
                     .sort((a, b) => b.timestamp - a.timestamp)
@@ -195,17 +134,6 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         margin: 12,
         width: '80%',
-        alignItems: 'center',
-    },
-    logoutContainer: {
-        padding: 12,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    commentsCountContainer: {
-        padding: 12,
-        flexDirection: 'row',
         alignItems: 'center',
     },
     commentsCount: {

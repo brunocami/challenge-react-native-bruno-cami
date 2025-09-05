@@ -1,3 +1,6 @@
+// Header personalizados para cada tab
+const FeedHeader = () => <CustomHeader title="Feed" />;
+const ProductosHeader = () => <CustomHeader title="Productos" />;
 import React from 'react';
 import LoginScreen from '../screens/LoginScreen';
 import {
@@ -16,8 +19,17 @@ import { useAuth } from '../context/AuthContext';
 import CheckoutScreen from '../screens/Checkout';
 import { getColors } from '../constants/colors';
 
+import CustomHeader from '../components/CustomHeader';
+
 const Tab = createBottomTabNavigator<AppTabParamList>();
 const Stack = createStackNavigator<RootStackParamList>();
+
+function getTabBarIcon(routeName: string) {
+    return ({ color, size }: { color: string; size: number }) => {
+        const name = routeName === 'Feed' ? 'comment' : 'shopping-cart';
+        return <MaterialIcons name={name} size={size} color={color} />;
+    };
+}
 
 function TabNavigator() {
     const scheme = useColorScheme();
@@ -25,16 +37,7 @@ function TabNavigator() {
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
-                headerShown: false,
-                tabBarIcon: ({ color, size }) => {
-                    // Cambiar icono segun la vista
-                    const name =
-                        route.name === 'Feed' ? 'comment' : 'shopping-cart';
-
-                    return (
-                        <MaterialIcons name={name} size={size} color={color} />
-                    );
-                },
+                tabBarIcon: getTabBarIcon(route.name),
                 tabBarActiveTintColor: '#4CAF50',
                 tabBarInactiveTintColor: 'gray',
                 tabBarStyle: {
@@ -43,8 +46,16 @@ function TabNavigator() {
                 },
             })}
         >
-            <Tab.Screen name="Feed" component={FeedScreen} />
-            <Tab.Screen name="Productos" component={ProductsScreen} />
+            <Tab.Screen
+                name="Feed"
+                component={FeedScreen}
+                options={{ header: FeedHeader }}
+            />
+            <Tab.Screen
+                name="Productos"
+                component={ProductsScreen}
+                options={{ header: ProductosHeader }}
+            />
         </Tab.Navigator>
     );
 }

@@ -100,7 +100,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     flatListContainer: {
-        paddingHorizontal: 8,
         justifyContent: 'space-between',
     },
 });
