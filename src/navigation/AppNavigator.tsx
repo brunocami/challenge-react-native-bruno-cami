@@ -21,7 +21,6 @@ import CheckoutScreen from '../screens/Checkout';
 import { getColors } from '../constants/colors';
 
 import CustomHeader from '../components/CustomHeader';
-import { Text } from 'react-native-gesture-handler';
 
 const Tab = createBottomTabNavigator<AppTabParamList>();
 const Stack = createStackNavigator<RootStackParamList>();

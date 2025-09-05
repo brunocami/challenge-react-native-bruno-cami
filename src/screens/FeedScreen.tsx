@@ -3,16 +3,15 @@ import {
     ActivityIndicator,
     FlatList,
     StyleSheet,
-    Text,
-    TouchableOpacity,
     useColorScheme,
     View,
 } from 'react-native';
 import { getColors } from '../constants/colors';
 import { Comment } from '../types/Feed';
 import { useFeed } from '../hooks/Feed';
-import MaterialIcons from '@react-native-vector-icons/material-icons';
 import FeedCard from '../components/FeedCard';
+import ErrorCard from '../components/ErrorCard';
+import NotFoundCard from '../components/NotFoundCard';
 
 const PAGE_SIZE = 10;
 
@@ -51,39 +50,11 @@ export default function FeedScreen() {
     }
 
     if (error) {
-        return (
-            <View
-                style={[
-                    styles.container,
-                    styles.centered,
-                    { backgroundColor: colors.background },
-                ]}
-            >
-                <View
-                    style={[
-                        styles.errorContainer,
-                        { backgroundColor: colors.card },
-                    ]}
-                >
-                    <MaterialIcons
-                        name="error"
-                        size={24}
-                        color={colors.error}
-                    />
-                    <Text style={{ color: colors.text }}>{error.message}</Text>
-                </View>
-                <TouchableOpacity
-                    onPress={fetchComments}
-                    style={{ marginTop: 8 }}
-                >
-                    <MaterialIcons
-                        name="autorenew"
-                        size={24}
-                        color={colors.text}
-                    />
-                </TouchableOpacity>
-            </View>
-        );
+        return <ErrorCard error={error} retry={fetchComments} />;
+    }
+
+    if (comments.length === 0) {
+        return <NotFoundCard title="No hay comentarios" />;
     }
 
     const renderFeedCard = ({ item }: { item: Comment }) => (
@@ -129,13 +100,7 @@ const styles = StyleSheet.create({
         top: 12,
         right: 0,
     },
-    errorContainer: {
-        padding: 12,
-        borderRadius: 8,
-        margin: 12,
-        width: '80%',
-        alignItems: 'center',
-    },
+
     commentsCount: {
         fontWeight: 'bold',
         backgroundColor: '#4CAF50',
